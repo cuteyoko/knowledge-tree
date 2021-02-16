@@ -12,9 +12,11 @@ sudo apt-get install gcc g++ cmake
 
 ```
 What is clangd?
-clangd understands your C++ code and adds smart features to your editor: code completion, compile errors, go-to-definition and more.
+clangd understands your C++ code and adds smart features to your editor: 
+code completion, compile errors, go-to-definition and more.
 
-clangd is a language server that can work with many editors via a plugin. Here’s Visual Studio Code with the clangd plugin, demonstrating code completion:
+clangd is a language server that can work with many editors via a plugin.
+Here’s Visual Studio Code with the clangd plugin, demonstrating code completion:
 [假装有图片]
 clangd is based on the Clang C++ compiler, and is part of the LLVM project.
 ```
