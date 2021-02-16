@@ -31,3 +31,7 @@ for languages in the C language family (C, C++, Objective C/C++, OpenCL, CUDA, a
 Both a GCC-compatible compiler driver (clang) and an MSVC-compatible compiler driver (clang-cl.exe) are provided.
 You can get and build the source today.
 ```
+
+### 从LLVM谈起
+
+[LLVM每日谈](https://llvm-cn.blog.csdn.net/article/details/8036032)
