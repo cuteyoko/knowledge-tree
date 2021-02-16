@@ -5,4 +5,10 @@
     网易云音乐Linux版启动问题：单点图标无法启动
     Wine QQ 字体乱码问题：部分汉字出现方框乱码
     
-## 
+## Grub Theme
+
+- PickATheme: [link](https://www.gnome-look.org/browse/cat/109/ord/rating/)
+- Install
+```
+sudo ./install.sh
+```
