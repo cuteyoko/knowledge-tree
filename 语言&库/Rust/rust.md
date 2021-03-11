@@ -1,4 +1,4 @@
-# Rush
+# Rust
 
 ## What is Rust? Why Rust?
 
