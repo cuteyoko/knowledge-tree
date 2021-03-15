@@ -384,3 +384,120 @@ print(ivals)
 # Outputs ['1', '2', '-3', '4', '5']
 filter() 函数创建了一个迭代器，因此如果你想得到一个列表的话，就得像示例那样使用 list() 去转换。
 ```
+
+## 1.17 从字典中提取子集
+
+
+```
+你想构造一个字典，它是另外一个字典的子集。
+
+解决方案
+最简单的方式是使用字典推导。比如：
+
+prices = {
+    'ACME': 45.23,
+    'AAPL': 612.78,
+    'IBM': 205.55,
+    'HPQ': 37.20,
+    'FB': 10.75
+}
+# Make a dictionary of all prices over 200
+p1 = {key: value for key, value in prices.items() if value > 200}
+# Make a dictionary of tech stocks
+tech_names = {'AAPL', 'IBM', 'HPQ', 'MSFT'}
+p2 = {key: value for key, value in prices.items() if key in tech_names}
+```
+
+## 1.18 映射名称到序列元素
+
+```
+collections.namedtuple() 函数通过使用一个普通的元组对象来帮你解决这个问题。 这个函数实际上是一个返回 Python 中标准元组类型子类的一个工厂方法。 你需要传递一个类型名和你需要的字段给它，然后它就会返回一个类，你可以初始化这个类，为你定义的字段传递值等。 代码示例：
+
+>>> from collections import namedtuple
+>>> Subscriber = namedtuple('Subscriber', ['addr', 'joined'])
+>>> sub = Subscriber('jonesy@example.com', '2012-10-19')
+>>> sub
+Subscriber(addr='jonesy@example.com', joined='2012-10-19')
+>>> sub.addr
+'jonesy@example.com'
+>>> sub.joined
+'2012-10-19'
+>>>
+尽管 namedtuple 的实例看起来像一个普通的类实例，但是它跟元组类型是可交换的，支持所有的普通元组操作，比如索引和解压。 比如：
+
+>>> len(sub)
+2
+>>> addr, joined = sub
+>>> addr
+'jonesy@example.com'
+>>> joined
+'2012-10-19'
+>>>
+命名元组的一个主要用途是将你的代码从下标操作中解脱出来。 因此，如果你从数据库调用中返回了一个很大的元组列表，通过下标去操作其中的元素， 当你在表中添加了新的列的时候你的代码可能就会出错了。但是如果你使用了命名元组，那么就不会有这样的顾虑。
+
+为了说明清楚，下面是使用普通元组的代码：
+
+def compute_cost(records):
+    total = 0.0
+    for rec in records:
+        total += rec[1] * rec[2]
+    return total
+下标操作通常会让代码表意不清晰，并且非常依赖记录的结构。 下面是使用命名元组的版本：
+
+from collections import namedtuple
+
+Stock = namedtuple('Stock', ['name', 'shares', 'price'])
+def compute_cost(records):
+    total = 0.0
+    for rec in records:
+        s = Stock(*rec)
+        total += s.shares * s.price
+    return total
+```
+
+## 1.19 转换并同时计算数据
+
+```
+一个非常优雅的方式去结合数据计算与转换就是使用一个生成器表达式参数。 比如，如果你想计算平方和，可以像下面这样做：
+
+nums = [1, 2, 3, 4, 5]
+s = sum(x * x for x in nums)
+下面是更多的例子：
+
+# Determine if any .py files exist in a directory
+import os
+files = os.listdir('dirname')
+if any(name.endswith('.py') for name in files):
+    print('There be python!')
+else:
+    print('Sorry, no python.')
+# Output a tuple as CSV
+s = ('ACME', 50, 123.45)
+print(','.join(str(x) for x in s))
+# Data reduction across fields of a data structure
+portfolio = [
+    {'name':'GOOG', 'shares': 50},
+    {'name':'YHOO', 'shares': 75},
+    {'name':'AOL', 'shares': 20},
+    {'name':'SCOX', 'shares': 65}
+]
+min_shares = min(s['shares'] for s in portfolio)
+```
+
+## 1.20 合并多个字典或映射
+
+
+```
+假如你有如下两个字典:
+
+a = {'x': 1, 'z': 3 }
+b = {'y': 2, 'z': 4 }
+现在假设你必须在两个字典中执行查找操作（比如先从 a 中找，如果找不到再在 b 中找）。
+一个非常简单的解决方案就是使用 collections 模块中的 ChainMap 类。比如：
+
+from collections import ChainMap
+c = ChainMap(a,b)
+print(c['x']) # Outputs 1 (from a)
+print(c['y']) # Outputs 2 (from b)
+print(c['z']) # Outputs 3 (from a)
+```
