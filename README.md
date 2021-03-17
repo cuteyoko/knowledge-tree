@@ -4,6 +4,7 @@
 
 [这里](https://github.com/xingshaocheng/architect-awesome)是别人的项目，我打算按照类似的结构来，慢慢补充
 
-## Todo
+## 链接
 
 [cpp insights](https://cppinsights.io/)
+[无痛的机器学习整理](https://zhuanlan.zhihu.com/p/22464594)
